@@ -33,7 +33,7 @@ namespace Blog.API.Controllers
 
             post = await postRepository.CreateAsync(post);
 
-            var response = new PostDTO
+            var response = new PostDto
             {
                 Id = post.Id,
                 Title = post.Title,
@@ -45,6 +45,32 @@ namespace Blog.API.Controllers
                 Author = post.Author,
                 IsVisible = post.IsVisible
             };
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllPosts()
+        {
+            var posts = await postRepository.GetAllAsync();
+
+            var response = new List<PostDto>();
+
+            foreach (var post in posts)
+            {
+                response.Add(new PostDto
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    ShortDescription = post.ShortDescription,
+                    Content = post.Content,
+                    ImageUrl = post.ImageUrl,
+                    UrlHandle = post.UrlHandle,
+                    PublishedDate = post.PublishedDate,
+                    Author = post.Author,
+                    IsVisible = post.IsVisible
+                });
+            }
 
             return Ok(response);
         }

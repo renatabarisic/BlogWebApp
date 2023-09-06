@@ -5,5 +5,6 @@ namespace Blog.API.Repositories.Interface
     public interface IPostRepository
     {
         Task<Post> CreateAsync(Post post);
+        Task<IEnumerable<Post>> GetAllAsync();
     }
 }
