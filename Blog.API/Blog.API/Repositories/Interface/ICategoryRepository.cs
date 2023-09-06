@@ -8,6 +8,7 @@ namespace Blog.API.Repositories.Interface
         Task<IEnumerable<Category>> GetAllAsync();
         Task<Category?> GetById(Guid id);
         Task<Category?> EditAsync(Category category);
+        Task<Category?> DeleteAsync(Guid id);
 
     }
 }
