@@ -9,6 +9,8 @@ import { AddCategoryComponent } from './features/category/add-category/add-categ
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
+import { PostGridComponent } from './features/post/post-grid/post-grid.component';
+import { AddPostComponent } from './features/post/add-post/add-post.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { EditCategoryComponent } from './features/category/edit-category/edit-ca
     CategoryGridComponent,
     AddCategoryComponent,
     EditCategoryComponent,
+    PostGridComponent,
+    AddPostComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
