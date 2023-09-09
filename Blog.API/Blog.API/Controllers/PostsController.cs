@@ -11,10 +11,12 @@ namespace Blog.API.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IPostRepository postRepository;
+        private readonly ICategoryRepository categoryRepository;
 
-        public PostsController(IPostRepository postRepository)
+        public PostsController(IPostRepository postRepository, ICategoryRepository categoryRepository)
         {
             this.postRepository = postRepository;
+            this.categoryRepository = categoryRepository;
         }
         [HttpPost]
         public async Task<IActionResult> CreatePost(CreatePostRequestDto request)
@@ -28,8 +30,18 @@ namespace Blog.API.Controllers
                 UrlHandle = request.UrlHandle,
                 PublishedDate = request.PublishedDate,
                 Author = request.Author,
-                IsVisible = request.IsVisible
+                IsVisible = request.IsVisible,
+                Categories = new List<Category>()
             };
+
+            foreach(var categoryGuid in request.Categories)
+            {
+                var existingCategory = await categoryRepository.GetById(categoryGuid);
+                if(existingCategory is not null)
+                {
+                    post.Categories.Add(existingCategory);
+                }
+            }
 
             post = await postRepository.CreateAsync(post);
 
@@ -43,7 +55,13 @@ namespace Blog.API.Controllers
                 UrlHandle = post.UrlHandle,
                 PublishedDate = post.PublishedDate,
                 Author = post.Author,
-                IsVisible = post.IsVisible
+                IsVisible = post.IsVisible,
+                Categories = post.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle= x.UrlHandle
+                }).ToList()
             };
 
             return Ok(response);
@@ -68,7 +86,13 @@ namespace Blog.API.Controllers
                     UrlHandle = post.UrlHandle,
                     PublishedDate = post.PublishedDate,
                     Author = post.Author,
-                    IsVisible = post.IsVisible
+                    IsVisible = post.IsVisible,
+                    Categories = post.Categories.Select(x => new CategoryDto
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        UrlHandle = x.UrlHandle
+                    }).ToList()
                 });
             }
 

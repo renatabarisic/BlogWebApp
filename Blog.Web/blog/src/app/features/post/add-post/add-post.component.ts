@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AddPost } from '../models/add-post.model';
 import { PostService } from '../services/post.service';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../category/services/category.service';
+import { Observable } from 'rxjs';
+import { Category } from '../../category/models/category.model';
 
 @Component({
   selector: 'app-add-post',
@@ -10,8 +13,13 @@ import { Router } from '@angular/router';
 })
 export class AddPostComponent implements OnInit {
   model: AddPost;
+  categories$?: Observable<Category[]>;
 
-  constructor(private postService: PostService, private router: Router) {
+  constructor(
+    private postService: PostService,
+    private router: Router,
+    private categoryService: CategoryService
+  ) {
     this.model = {
       title: '',
       shortDescription: '',
@@ -21,10 +29,13 @@ export class AddPostComponent implements OnInit {
       author: '',
       publishedDate: new Date(),
       isVisible: true,
+      categories: [],
     };
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.categories$ = this.categoryService.getAllCategories();
+  }
 
   onFormSubmit(): void {
     this.postService.createPost(this.model).subscribe({
