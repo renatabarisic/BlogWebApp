@@ -20,6 +20,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
   selectedCategories?: string[];
   getPostSubscription?: Subscription;
   editPostSubscription?: Subscription;
+  deletePostSubscription?: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -72,9 +73,22 @@ export class EditPostComponent implements OnInit, OnDestroy {
     }
   }
 
+  onDelete(): void {
+    if (this.id) {
+      this.deletePostSubscription = this.postService
+        .deletePost(this.id)
+        .subscribe({
+          next: (response) => {
+            this.router.navigateByUrl('/admin/posts');
+          },
+        });
+    }
+  }
+
   ngOnDestroy(): void {
     this.routeSubscription?.unsubscribe();
     this.getPostSubscription?.unsubscribe();
     this.editPostSubscription?.unsubscribe();
+    this.deletePostSubscription?.unsubscribe();
   }
 }

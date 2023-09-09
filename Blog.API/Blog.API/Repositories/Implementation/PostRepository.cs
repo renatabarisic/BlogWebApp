@@ -20,6 +20,20 @@ namespace Blog.API.Repositories.Implementation
             return post;
         }
 
+        public async Task<Post?> DeleteAsync(Guid id)
+        {
+            var existingPost = await dbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (existingPost is not null)
+            {
+                dbContext.Posts.Remove(existingPost);
+                await dbContext.SaveChangesAsync();
+                return existingPost;
+            }
+
+            return null;
+        }
+
         public async Task<Post?> EditAsync(Post post)
         {
             var existingPost = await dbContext.Posts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == post.Id);

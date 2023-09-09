@@ -4,6 +4,7 @@ using Blog.API.Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace Blog.API.Controllers
 {
@@ -105,7 +106,7 @@ namespace Blog.API.Controllers
         {
             var post = await postRepository.GetByIdAsync(id);
 
-            if(post is null)
+            if (post is null)
             {
                 return NotFound();
             }
@@ -150,11 +151,11 @@ namespace Blog.API.Controllers
                 Categories = new List<Category>()
             };
 
-            foreach(var categoryGuid in request.Categories)
+            foreach (var categoryGuid in request.Categories)
             {
                 var existingCategory = await categoryRepository.GetById(categoryGuid);
 
-                if(existingCategory is not null)
+                if (existingCategory is not null)
                 {
                     post.Categories.Add(existingCategory);
                 }
@@ -162,7 +163,7 @@ namespace Blog.API.Controllers
 
             var updatedPost = await postRepository.EditAsync(post);
 
-            if(updatedPost is null)
+            if (updatedPost is null)
             {
                 return NotFound();
             }
@@ -184,6 +185,32 @@ namespace Blog.API.Controllers
                     Name = x.Name,
                     UrlHandle = x.UrlHandle
                 }).ToList()
+            };
+
+            return Ok(response);
+        }
+        [HttpDelete]
+        [Route("{id:Guid}")]
+        public async Task<IActionResult> DeletePost([FromRoute] Guid id)
+        {
+            var deletedPost = await postRepository.DeleteAsync(id);
+
+            if (deletedPost is null)
+            {
+                return NotFound();
+            }
+
+            var response = new PostDto
+            {
+                Id = deletedPost.Id,
+                Title = deletedPost.Title,
+                ShortDescription = deletedPost.ShortDescription,
+                Content = deletedPost.Content,
+                ImageUrl = deletedPost.ImageUrl,
+                UrlHandle = deletedPost.UrlHandle,
+                PublishedDate = deletedPost.PublishedDate,
+                Author = deletedPost.Author,
+                IsVisible = deletedPost.IsVisible,
             };
 
             return Ok(response);

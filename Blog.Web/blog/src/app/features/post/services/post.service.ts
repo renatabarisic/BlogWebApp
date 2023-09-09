@@ -30,4 +30,8 @@ export class PostService {
       editedPost
     );
   }
+
+  deletePost(id: string): Observable<Post> {
+    return this.http.delete<Post>(`${environment.apiBaseUrl}/api/posts/${id}`);
+  }
 }
