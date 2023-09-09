@@ -6,5 +6,7 @@ namespace Blog.API.Repositories.Interface
     {
         Task<Post> CreateAsync(Post post);
         Task<IEnumerable<Post>> GetAllAsync();
+        Task<Post?> GetByIdAsync(Guid id);
+        Task<Post?> EditAsync(Post post);
     }
 }

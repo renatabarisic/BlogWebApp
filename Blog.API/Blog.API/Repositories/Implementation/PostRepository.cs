@@ -20,9 +20,31 @@ namespace Blog.API.Repositories.Implementation
             return post;
         }
 
+        public async Task<Post?> EditAsync(Post post)
+        {
+            var existingPost = await dbContext.Posts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == post.Id);
+
+            if(existingPost is null)
+            {
+                return null;
+            }
+
+            dbContext.Entry(existingPost).CurrentValues.SetValues(post);
+            existingPost.Categories = post.Categories;
+
+            await dbContext.SaveChangesAsync();
+
+            return post;
+        }
+
         public async Task<IEnumerable<Post>> GetAllAsync()
         {
             return await dbContext.Posts.Include(x => x.Categories).ToListAsync();
+        }
+
+        public async Task<Post?> GetByIdAsync(Guid id)
+        {
+            return await dbContext.Posts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

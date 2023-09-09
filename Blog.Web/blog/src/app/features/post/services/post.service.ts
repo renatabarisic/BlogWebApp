@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/post.model';
+import { EditPost } from '../models/edit-post.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,5 +18,16 @@ export class PostService {
 
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${environment.apiBaseUrl}/api/posts`);
+  }
+
+  getPostById(id: string): Observable<Post> {
+    return this.http.get<Post>(`${environment.apiBaseUrl}/api/posts/${id}`);
+  }
+
+  editPost(id: string, editedPost: EditPost): Observable<Post> {
+    return this.http.put<Post>(
+      `${environment.apiBaseUrl}/api/posts/${id}`,
+      editedPost
+    );
   }
 }
