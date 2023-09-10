@@ -10,5 +10,6 @@ namespace Blog.API.Data
         }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<PostImage> PostImages { get; set; }
     }
 }

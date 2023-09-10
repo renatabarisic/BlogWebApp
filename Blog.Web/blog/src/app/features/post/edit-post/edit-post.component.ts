@@ -6,6 +6,7 @@ import { Post } from '../models/post.model';
 import { CategoryService } from '../../category/services/category.service';
 import { Category } from '../../category/models/category.model';
 import { EditPost } from '../models/edit-post.model';
+import { ImageService } from 'src/app/shared/components/image-upload/image.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -21,12 +22,15 @@ export class EditPostComponent implements OnInit, OnDestroy {
   getPostSubscription?: Subscription;
   editPostSubscription?: Subscription;
   deletePostSubscription?: Subscription;
+  isImageModalVisible: boolean = false;
+  imageSelectSubscription?: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private imageService: ImageService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +49,16 @@ export class EditPostComponent implements OnInit, OnDestroy {
               },
             });
         }
+        this.imageSelectSubscription = this.imageService
+          .onSelectImage()
+          .subscribe({
+            next: (response) => {
+              if (this.model) {
+                this.model.imageUrl = response.url;
+                this.closeImageModal();
+              }
+            },
+          });
       },
     });
   }
@@ -85,10 +99,19 @@ export class EditPostComponent implements OnInit, OnDestroy {
     }
   }
 
+  openImageModal(): void {
+    this.isImageModalVisible = true;
+  }
+
+  closeImageModal(): void {
+    this.isImageModalVisible = false;
+  }
+
   ngOnDestroy(): void {
     this.routeSubscription?.unsubscribe();
     this.getPostSubscription?.unsubscribe();
     this.editPostSubscription?.unsubscribe();
     this.deletePostSubscription?.unsubscribe();
+    this.imageSelectSubscription?.unsubscribe();
   }
 }

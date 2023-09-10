@@ -12,6 +12,7 @@ import { EditCategoryComponent } from './features/category/edit-category/edit-ca
 import { PostGridComponent } from './features/post/post-grid/post-grid.component';
 import { AddPostComponent } from './features/post/add-post/add-post.component';
 import { EditPostComponent } from './features/post/edit-post/edit-post.component';
+import { ImageUploadComponent } from './shared/components/image-upload/image-upload.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { EditPostComponent } from './features/post/edit-post/edit-post.component
     PostGridComponent,
     AddPostComponent,
     EditPostComponent,
+    ImageUploadComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
