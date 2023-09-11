@@ -13,6 +13,7 @@ import { PostGridComponent } from './features/post/post-grid/post-grid.component
 import { AddPostComponent } from './features/post/add-post/add-post.component';
 import { EditPostComponent } from './features/post/edit-post/edit-post.component';
 import { ImageUploadComponent } from './shared/components/image-upload/image-upload.component';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,13 @@ import { ImageUploadComponent } from './shared/components/image-upload/image-upl
     EditPostComponent,
     ImageUploadComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    MarkdownModule.forRoot(),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
