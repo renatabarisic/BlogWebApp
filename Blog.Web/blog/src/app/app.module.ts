@@ -14,6 +14,8 @@ import { AddPostComponent } from './features/post/add-post/add-post.component';
 import { EditPostComponent } from './features/post/edit-post/edit-post.component';
 import { ImageUploadComponent } from './shared/components/image-upload/image-upload.component';
 import { MarkdownModule } from 'ngx-markdown';
+import { HomeComponent } from './features/public/home/home.component';
+import { PostDetailsComponent } from './features/public/post-details/post-details.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { MarkdownModule } from 'ngx-markdown';
     AddPostComponent,
     EditPostComponent,
     ImageUploadComponent,
+    HomeComponent,
+    PostDetailsComponent,
   ],
   imports: [
     BrowserModule,

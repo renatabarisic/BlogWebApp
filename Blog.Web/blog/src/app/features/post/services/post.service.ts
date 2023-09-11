@@ -24,6 +24,12 @@ export class PostService {
     return this.http.get<Post>(`${environment.apiBaseUrl}/api/posts/${id}`);
   }
 
+  getPostByUrlHandle(urlHandle: string): Observable<Post> {
+    return this.http.get<Post>(
+      `${environment.apiBaseUrl}/api/posts/${urlHandle}`
+    );
+  }
+
   editPost(id: string, editedPost: EditPost): Observable<Post> {
     return this.http.put<Post>(
       `${environment.apiBaseUrl}/api/posts/${id}`,

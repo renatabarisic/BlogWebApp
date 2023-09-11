@@ -133,6 +133,39 @@ namespace Blog.API.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("{urlHandle}")]
+        public async Task<IActionResult> GetPostByUrlHandle([FromRoute] string urlHandle)
+        {
+            var post = await postRepository.GetByUrlHandleAsync(urlHandle);
+
+            if (post is null)
+            {
+                return NotFound();
+            }
+
+            var response = new PostDto
+            {
+                Id = post.Id,
+                Title = post.Title,
+                ShortDescription = post.ShortDescription,
+                Content = post.Content,
+                ImageUrl = post.ImageUrl,
+                UrlHandle = post.UrlHandle,
+                PublishedDate = post.PublishedDate,
+                Author = post.Author,
+                IsVisible = post.IsVisible,
+                Categories = post.Categories.Select(x => new CategoryDto
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    UrlHandle = x.UrlHandle
+                }).ToList()
+            };
+
+            return Ok(response);
+        }
+
         [HttpPut]
         [Route("{id:Guid}")]
         public async Task<IActionResult> EditPost([FromRoute] Guid id, EditPostRequestDto request)

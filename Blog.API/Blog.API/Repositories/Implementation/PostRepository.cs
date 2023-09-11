@@ -60,5 +60,10 @@ namespace Blog.API.Repositories.Implementation
         {
             return await dbContext.Posts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<Post?> GetByUrlHandleAsync(string urlHandle)
+        {
+            return await dbContext.Posts.Include(x => x.Categories).FirstOrDefaultAsync(x => x.UrlHandle == urlHandle);
+        }
     }
 }
