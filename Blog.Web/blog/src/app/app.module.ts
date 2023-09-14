@@ -7,7 +7,7 @@ import { NavComponent } from './core/components/nav/nav.component';
 import { CategoryGridComponent } from './features/category/category-grid/category-grid.component';
 import { AddCategoryComponent } from './features/category/add-category/add-category.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
 import { PostGridComponent } from './features/post/post-grid/post-grid.component';
 import { AddPostComponent } from './features/post/add-post/add-post.component';
@@ -16,6 +16,8 @@ import { ImageUploadComponent } from './shared/components/image-upload/image-upl
 import { MarkdownModule } from 'ngx-markdown';
 import { HomeComponent } from './features/public/home/home.component';
 import { PostDetailsComponent } from './features/public/post-details/post-details.component';
+import { LoginComponent } from './features/auth/login/login.component';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { PostDetailsComponent } from './features/public/post-details/post-detail
     ImageUploadComponent,
     HomeComponent,
     PostDetailsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,9 @@ import { PostDetailsComponent } from './features/public/post-details/post-detail
     HttpClientModule,
     MarkdownModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
 ﻿using Blog.API.Models.Domain;
 using Blog.API.Models.DTO;
 using Blog.API.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,9 @@ namespace Blog.API.Controllers
             this.postRepository = postRepository;
             this.categoryRepository = categoryRepository;
         }
+
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> CreatePost(CreatePostRequestDto request)
         {
             var post = new Post
@@ -100,6 +103,7 @@ namespace Blog.API.Controllers
 
             return Ok(response);
         }
+
         [HttpGet]
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetPostById([FromRoute] Guid id)
@@ -168,6 +172,7 @@ namespace Blog.API.Controllers
 
         [HttpPut]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditPost([FromRoute] Guid id, EditPostRequestDto request)
         {
             var post = new Post
@@ -222,8 +227,10 @@ namespace Blog.API.Controllers
 
             return Ok(response);
         }
+
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeletePost([FromRoute] Guid id)
         {
             var deletedPost = await postRepository.DeleteAsync(id);

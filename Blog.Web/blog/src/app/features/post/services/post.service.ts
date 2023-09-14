@@ -13,7 +13,10 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   createPost(data: AddPost): Observable<Post> {
-    return this.http.post<Post>(`${environment.apiBaseUrl}/api/posts`, data);
+    return this.http.post<Post>(
+      `${environment.apiBaseUrl}/api/posts?addAuth=true`,
+      data
+    );
   }
 
   getAllPosts(): Observable<Post[]> {
@@ -32,12 +35,14 @@ export class PostService {
 
   editPost(id: string, editedPost: EditPost): Observable<Post> {
     return this.http.put<Post>(
-      `${environment.apiBaseUrl}/api/posts/${id}`,
+      `${environment.apiBaseUrl}/api/posts/${id}?addAuth=true`,
       editedPost
     );
   }
 
   deletePost(id: string): Observable<Post> {
-    return this.http.delete<Post>(`${environment.apiBaseUrl}/api/posts/${id}`);
+    return this.http.delete<Post>(
+      `${environment.apiBaseUrl}/api/posts/${id}?addAuth=true`
+    );
   }
 }

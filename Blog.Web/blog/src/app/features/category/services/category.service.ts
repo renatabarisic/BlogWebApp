@@ -5,23 +5,24 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.model';
 import { EditCategoryRequest } from '../models/edit-category-request.model';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   addCategory(model: AddCategoryRequest): Observable<void> {
     return this.http.post<void>(
-      `${environment.apiBaseUrl}/api/categories`,
+      `${environment.apiBaseUrl}/api/categories?addAuth=true`,
       model
     );
   }
 
   deleteCategory(id: string): Observable<Category> {
     return this.http.delete<Category>(
-      `${environment.apiBaseUrl}/api/categories/${id}`
+      `${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`
     );
   }
 
@@ -30,7 +31,7 @@ export class CategoryService {
     editCategoryRequest: EditCategoryRequest
   ): Observable<Category> {
     return this.http.put<Category>(
-      `${environment.apiBaseUrl}/api/categories/${id}`,
+      `${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`,
       editCategoryRequest
     );
   }
