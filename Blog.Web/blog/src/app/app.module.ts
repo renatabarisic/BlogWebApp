@@ -18,6 +18,7 @@ import { HomeComponent } from './features/public/home/home.component';
 import { PostDetailsComponent } from './features/public/post-details/post-details.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { RegisterComponent } from './features/auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     HomeComponent,
     PostDetailsComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

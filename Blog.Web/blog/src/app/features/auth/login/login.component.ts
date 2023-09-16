@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoginRequst } from '../models/login-request.model';
+import { LoginRequest } from '../models/login-request.model';
 import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  model: LoginRequst;
+  model: LoginRequest;
 
   constructor(
     private authService: AuthService,

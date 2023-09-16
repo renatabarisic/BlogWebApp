@@ -12,6 +12,16 @@ body {
   width: 100%;
 }
 
+a{
+  color: #fc4892;
+  &:hover{
+    color: #fd68a6;
+  }
+  &:active{
+    color: #623e9a;
+  }
+}
+
 .flex-1 {
   flex: 1;
 }

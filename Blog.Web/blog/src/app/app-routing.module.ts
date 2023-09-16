@@ -10,6 +10,7 @@ import { HomeComponent } from './features/public/home/home.component';
 import { PostDetailsComponent } from './features/public/post-details/post-details.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { authGuard } from './features/auth/guards/auth.guard';
+import { RegisterComponent } from './features/auth/register/register.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
   },
   {
     path: 'post/:url',
