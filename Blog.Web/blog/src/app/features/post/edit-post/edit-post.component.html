@@ -56,13 +56,14 @@
             >Image Url
             <button
               type="button"
-              class="btn btn-light ms-1"
+              class="btn btn-secondary ms-1"
               (click)="openImageModal()"
             >
               Upload Image
             </button>
           </label>
           <input
+            disabled="true"
             type="text"
             id="imageUrl"
             name="imageUrl"
@@ -71,7 +72,7 @@
           />
           <ng-container *ngIf="model.imageUrl !== ''">
             <div>
-              <img [src]="model.imageUrl" height="100" class="my-2" />
+              <img [src]="model.imageUrl" class="my-2 w-50" />
             </div>
           </ng-container>
         </div>

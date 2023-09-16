@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import "styles/bs-overrides.scss";
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0ecf3;
+}
+
+.gradient-line {
+  background: linear-gradient(to right, #fc4892, #4cc2fd, #fc4892);
+  height: 3px;
+  width: 100%;
+}
+
 .flex-1 {
   flex: 1;
 }
@@ -33,4 +47,9 @@
   min-width: 100px;
   justify-content: center;
   cursor: pointer;
+}
+
+option:checked{
+  background-color: #e4d4ff;
+  color: #623e9a;
 }

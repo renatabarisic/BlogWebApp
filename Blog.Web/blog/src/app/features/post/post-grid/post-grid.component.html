@@ -4,7 +4,7 @@
     <a [routerLink]="['/admin/posts/add']" class="btn btn-primary">Add</a>
   </div>
   <ng-container *ngIf="posts$ | async as posts">
-    <table class="table table-bordered mt-3">
+    <table class="table mt-3">
       <thead>
         <tr>
           <th>Title</th>
@@ -19,13 +19,13 @@
           <td>{{ post.title }}</td>
           <td>{{ post.shortDescription }}</td>
           <td>{{ post.isVisible }}</td>
-          <td class="d-flex gap-1 border-0">
+          <td>
             <span *ngFor="let category of post.categories">
-              <span class="badge bg-secondary">{{ category.name }}</span>
+              <span class="badge">{{ category.name }}</span>
             </span>
           </td>
-          <td>
-            <a class="btn btn-light" [routerLink]="['/admin/posts', post.id]"
+          <td class=" text-center">
+            <a class="btn btn-secondary" [routerLink]="['/admin/posts', post.id]"
               >Edit</a
             >
           </td>
